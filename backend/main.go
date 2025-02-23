@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"go.mod/backend/db"
-	"go.mod/backend/routes"
+	"go.mod/v2/db"
+	"go.mod/v2/routes"
 	"log"
 )
 

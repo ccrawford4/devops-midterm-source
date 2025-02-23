@@ -1,4 +1,4 @@
-module go.mod
+module go.mod/v2
 
 go 1.24.0
 

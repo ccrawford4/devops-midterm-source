@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
-	"go.mod/backend/db"
-	"go.mod/backend/models"
+	"go.mod/v2/db"
+	"go.mod/v2/models"
 	"net/http"
 )
 

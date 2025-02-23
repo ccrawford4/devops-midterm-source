@@ -3,7 +3,7 @@ package db
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"go.mod/backend/models"
+	"go.mod/v2/models"
 	"log"
 	"os"
 )
