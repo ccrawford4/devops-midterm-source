@@ -1,32 +1,22 @@
-# Use official Golang image as base
-FROM golang:1.21 AS build
+FROM golang:1.24 AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy go.mod and go.sum first (for caching dependencies)
-COPY go.mod go.sum ./
+# Copy the entire project directory
+COPY . .
 
 # Download dependencies
 RUN go mod download
 
-# Copy the rest of the application
-COPY . .
+# Build the binary
+RUN CGO_ENABLED=0 go build -o main
 
-# Build the Go application
-RUN go build -o main .
-
-# Use a minimal base image for the final container
 FROM alpine:latest
 
-# Set working directory in the final container
-WORKDIR /root/
+WORKDIR /app
 
-# Copy built binary from the previous stage
-COPY --from=build /app/main .
+COPY --from=builder /app/main .
+RUN apk --no-cache add ca-certificates
 
-# Expose the backend port
 EXPOSE 8080
-
-# Run the application
 CMD ["./main"]

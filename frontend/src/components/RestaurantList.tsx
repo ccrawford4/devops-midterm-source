@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import { getRestaurants } from "../api";
+import {getRestaurants, Restaurant} from "../api";
 
 const RestaurantList = () => {
-    const [restaurants, setRestaurants] = useState([]);
+    const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
     useEffect(() => {
-        getRestaurants().then(setRestaurants);
+        getRestaurants().then((restaurants) => {
+            if (restaurants) {
+                setRestaurants(restaurants)
+            }
+        });
     }, []);
 
     return (
         <div>
             <h2>Restaurants</h2>
             <ul>
-                {restaurants.map((r) => (
+                {restaurants.map((r: Restaurant) => (
                     <li key={r.id}>{r.name} - {r.location} ({r.cuisine})</li>
                 ))}
             </ul>

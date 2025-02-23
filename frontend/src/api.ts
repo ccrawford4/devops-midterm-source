@@ -2,7 +2,14 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080";
 
-export const getRestaurants = async () => {
+export type Restaurant = {
+    id: string
+    name: string
+    location: string
+    cuisine: string
+}
+
+export const getRestaurants = async (): Promise<Restaurant[]> => {
     const response = await axios.get(`${API_URL}/restaurants`);
     return response.data;
 };
