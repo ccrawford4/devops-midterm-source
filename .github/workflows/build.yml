@@ -37,3 +37,13 @@ jobs:
           docker build -t frontend .
           docker tag frontend:latest ${{ secrets.ECR_REPOSITORY_URI }}:frontend
           docker push ${{ secrets.ECR_REPOSITORY_URI }}:frontend
+      
+      - name: Build, tag, and push backend image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: latest
+        run: |
+            cd backend
+            docker build -t frontend .
+            docker tag frontend:latest ${{ secrets.ECR_REPOSITORY_URI }}:frontend
+            docker push ${{ secrets.ECR_REPOSITORY_URI }}:frontend
