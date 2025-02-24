@@ -31,7 +31,7 @@ export const addRestaurant = async (data: RestaurantCreateInput): Promise<Restau
 };
 
 export const updateRestaurant = async (data: { data: Omit<Restaurant, "ID">; ID: any }) => {
-    await axios.put(`${API_URL}/restaurants/${data.ID}`, data);
+    await axios.put(`${API_URL}/restaurants/${data.ID}`, data.data);
 };
 
 export const deleteRestaurant = async (id: string) => {

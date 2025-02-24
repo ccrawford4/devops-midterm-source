@@ -15,8 +15,8 @@ interface Restaurant {
 
 // Props for the form component
 interface RestaurantFormProps {
-    data?: Restaurant;
     onSubmit: (data: Omit<Restaurant, 'ID'>) => Promise<void>;
+    onClose: () => void;
     mode: 'create' | 'update';
     restaurant?: Restaurant
 }
@@ -32,15 +32,16 @@ interface DeleteRestaurantDialogProps {
 
 // Restaurant Form Component for Creating/Updating
 export const RestaurantForm: React.FC<RestaurantFormProps> = (props) => {
-    const { data, onSubmit, mode } = props;
+    const { restaurant, onSubmit, mode, onClose } = props;
 
     const [formData, setFormData] = useState<Omit<Restaurant, 'id'>>({
-        name: data?.name || '',
-        location: data?.location || '',
-        cuisine: data?.cuisine || ''
+        name: restaurant?.name || '',
+        location: restaurant?.location || '',
+        cuisine: restaurant?.cuisine || ''
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
+        console.log("submit")
         e.preventDefault();
         await onSubmit(formData);
     };
@@ -98,6 +99,9 @@ export const RestaurantForm: React.FC<RestaurantFormProps> = (props) => {
                         </Button>
                     </CardActions>
                 </form>
+                <DialogActions>
+                    <Button variant={"outlined"} onClick={onClose}>Cancel</Button>
+                </DialogActions>
             </CardContent>
         </Card>
     );
@@ -113,11 +117,7 @@ export const DeleteRestaurantDialog: React.FC<DeleteRestaurantDialogProps> = (
 }) => {
 
     const handleDelete = async () => {
-        console.log("restaurant: ", restaurant)
-        console.log("Delete!");
-        console.log("restaurant.id: ", restaurant.ID)
         if (restaurant.ID) {
-            console.log("test")
             await onDelete(restaurant.ID);
             onClose();
         }

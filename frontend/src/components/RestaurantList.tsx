@@ -54,7 +54,7 @@ export default function RestaurantList() {
     };
 
     useEffect(() => {
-        console.log("Selected Restaurants: ", selectedRestaurant);
+        console.log("selectedRestaurant: ", selectedRestaurant);
     }, [selectedRestaurant]);
 
     return (
@@ -112,6 +112,7 @@ export default function RestaurantList() {
                 <DialogContent className="sm:max-w-[425px]">
                         <DialogTitle>Add New Restaurant</DialogTitle>
                     <RestaurantForm
+                        onClose={() => setAddDialogOpen(false)}
                         onSubmit={handleAddRestaurant}
                         mode="create"
                     />
@@ -121,12 +122,12 @@ export default function RestaurantList() {
             {/* Edit Restaurant Dialog */}
             <Dialog
                 open={selectedRestaurant !== null && !deleteDialogOpen}
-                onChange={() => setSelectedRestaurant(null)}
             >
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogTitle>Edit Restaurant</DialogTitle>
                     {selectedRestaurant && (
                         <RestaurantForm
+                            onClose={() => setSelectedRestaurant(null)}
                             onSubmit={(data) => handleUpdateRestaurant({ ID: selectedRestaurant.ID, data: data})}
                             mode="update"
                             restaurant={selectedRestaurant}
