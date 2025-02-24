@@ -14,7 +14,20 @@ export const getRestaurants = async (): Promise<Restaurant[]> => {
     return response.data;
 };
 
-// @ts-ignore
-export const addRestaurant = async (restaurant: { name: string; location: string; cuisine: string }) => {
-    await axios.post(`${API_URL}/restaurants`, restaurant);
+export const addRestaurant = async (restaurant: { name: string; location: string; cuisine: string }): Promise<Restaurant> => {
+    const resp = await axios.post(`${API_URL}/restaurants`, restaurant);
+    return {
+        id: resp.data.ID,
+        name: resp.data.name,
+        cuisine: resp.data.cuisine,
+        location: resp.data.location,
+    }
+};
+
+export const updateRestaurant = async (id: string, restaurant: { name: string; location: string; cuisine: string }) => {
+    await axios.put(`${API_URL}/restaurants/${id}`, restaurant);
+};
+
+export const deleteRestaurant = async (id: string) => {
+    await axios.delete(`${API_URL}/restaurants/${id}`);
 };
