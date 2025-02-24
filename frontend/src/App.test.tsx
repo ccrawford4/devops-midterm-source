@@ -3,9 +3,7 @@ import { act, render, screen, fireEvent, waitFor } from '@testing-library/react'
 import RestaurantList from '../src/components/RestaurantList';
 import {
   getRestaurants,
-  addRestaurant,
   deleteRestaurant,
-  updateRestaurant
 } from '../src/api';
 
 // Mock the API functions
