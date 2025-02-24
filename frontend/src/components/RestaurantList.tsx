@@ -1,88 +1,152 @@
 import React, { useEffect, useState } from 'react';
-import { getRestaurants, Restaurant, addRestaurant, deleteRestaurant } from '../api';
+import {
+    getRestaurants,
+    Restaurant,
+    addRestaurant,
+    deleteRestaurant,
+    RestaurantCreateInput,
+    updateRestaurant,
+} from '../api';
 import { RestaurantForm, DeleteRestaurantDialog } from './RestaurantComponent';
+import { Card, CardContent } from "@mui/material";
 import { Button } from "@mui/material"
 import {
     Dialog,
     DialogContent,
-} from "@mui/material"
+    DialogTitle,
+} from "@mui/material";
+import { Plus, Edit, Trash2 } from "lucide-react";
 
 export default function RestaurantList() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [addDialogOpen, setAddDialogOpen] = useState(false);
+    const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-    // useEffect(() => {
-    //     loadRestaurants();
-    // }, []);
+    useEffect(() => {
+        loadRestaurants();
+    }, []);
 
     const loadRestaurants = async () => {
         const data = await getRestaurants();
         setRestaurants(data);
     };
 
-    const handleAddRestaurant = async (formData: any) => {
-        setIsAddDialogOpen(false);
+    const handleAddRestaurant = async (formData: RestaurantCreateInput) => {
+        await addRestaurant(formData);
+        setAddDialogOpen(false);
+        await loadRestaurants();
+    };
+
+    const handleUpdateRestaurant = async (formData: { data: Omit<Restaurant, "ID">; ID: string }) => {
+        await updateRestaurant(formData);
+        setSelectedRestaurant(null);
         await loadRestaurants();
     };
 
     const handleDeleteRestaurant = async (id: string) => {
-        await deleteRestaurant(id);
+        console.log("Triggered!");
+        const response = await deleteRestaurant(id);
+        console.log(response);
+        setDeleteDialogOpen(false);
+        setSelectedRestaurant(null);
         await loadRestaurants();
     };
 
-    const toggleIsAddDialogueOpen = () => {
-        setIsAddDialogOpen(!isAddDialogOpen)
-    }
+    useEffect(() => {
+        console.log("Selected Restaurants: ", selectedRestaurant);
+    }, [selectedRestaurant]);
 
     return (
-        <div className="p-4 max-w-4xl mx-auto">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Restaurants</h2>
-                <Button onClick={toggleIsAddDialogueOpen}>
+        <div className="p-6 max-w-4xl mx-auto space-y-6">
+            <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-bold tracking-tight">Restaurants</h1>
+                <Button onClick={() => setAddDialogOpen(true)} className="gap-2">
+                    <Plus size={16} />
                     Add Restaurant
                 </Button>
-                <Dialog open={isAddDialogOpen}>
-                    <DialogContent>
-                        <RestaurantForm />
-                    </DialogContent>
-                </Dialog>
-                {/*<Dialog open={true} onChange={() => setIsAddDialogOpen} >*/}
-                {/*        <Button>Add Restaurant</Button>*/}
-                {/*    <DialogContent>*/}
-                {/*        <RestaurantForm onSubmit={() => handleAddRestaurant} />*/}
-                {/*    </DialogContent>*/}
-                {/*</Dialog>*/}
             </div>
 
-            {/*<div className="grid gap-4">*/}
-            {/*    {restaurants.map((restaurant) => (*/}
-            {/*        <div key={restaurant.id} className="flex items-center justify-between p-4 border rounded-lg">*/}
-            {/*            <div>*/}
-            {/*                <h3 className="font-semibold">{restaurant.name}</h3>*/}
-            {/*                <p className="text-sm text-gray-600">{restaurant.location}</p>*/}
-            {/*                <p className="text-sm text-gray-600">{restaurant.cuisine}</p>*/}
-            {/*            </div>*/}
-            {/*            <div className="space-x-2">*/}
-            {/*                <Dialog open={true}>*/}
-            {/*                        <Button variant="outlined">Edit</Button>*/}
-            {/*                    <DialogContent>*/}
-            {/*                        <RestaurantForm*/}
-            {/*                            restaurant={restaurant}*/}
-            {/*                            onSubmit={(data: any) => {*/}
-            {/*                                // Implement update API call here*/}
-            {/*                                loadRestaurants();*/}
-            {/*                            }}*/}
-            {/*                            mode="update"*/}
-            {/*                        />*/}
-            {/*                    </DialogContent>*/}
-            {/*                </Dialog>*/}
-            {/*                <DeleteRestaurantDialog*/}
-            {/*                    restaurant={restaurant}*/}
-            {/*                    onDelete={handleDeleteRestaurant} open={undefined} onClose={undefined}                            />*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
+            <div className="grid gap-4">
+                {restaurants.map((restaurant) => (
+                    <Card key={restaurant.ID} className="transition-all hover:shadow-lg">
+                        <CardContent className="flex items-center justify-between p-6">
+                            <div className="space-y-1">
+                                <h3 className="text-xl font-semibold">{restaurant.name}</h3>
+                                <div className="text-sm text-muted-foreground space-x-2">
+                                    <span>{restaurant.cuisine}</span>
+                                    <span>•</span>
+                                    <span>{restaurant.location}</span>
+                                </div>
+                            </div>
+                            <div className="flex gap-2">
+                                <Button
+                                    variant="outlined"
+                                    size={"small"}
+                                    className="gap-2"
+                                    onClick={() => setSelectedRestaurant(restaurant)}
+                                >
+                                    <Edit size={14} />
+                                    Edit
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    className="gap-2 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                    onClick={() => {
+                                        setSelectedRestaurant(restaurant);
+                                        setDeleteDialogOpen(true);
+                                    }}
+                                >
+                                    <Trash2 size={14} />
+                                    Delete
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+            {/* Add Restaurant Dialog */}
+            <Dialog open={addDialogOpen} onChange={() => setAddDialogOpen}>
+                <DialogContent className="sm:max-w-[425px]">
+                        <DialogTitle>Add New Restaurant</DialogTitle>
+                    <RestaurantForm
+                        onSubmit={handleAddRestaurant}
+                        mode="create"
+                    />
+                </DialogContent>
+            </Dialog>
+
+            {/* Edit Restaurant Dialog */}
+            <Dialog
+                open={selectedRestaurant !== null && !deleteDialogOpen}
+                onChange={() => setSelectedRestaurant(null)}
+            >
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogTitle>Edit Restaurant</DialogTitle>
+                    {selectedRestaurant && (
+                        <RestaurantForm
+                            onSubmit={(data) => handleUpdateRestaurant({ ID: selectedRestaurant.ID, data: data})}
+                            mode="update"
+                            restaurant={selectedRestaurant}
+                        />
+                    )}
+                </DialogContent>
+            </Dialog>
+
+            {/* Delete Restaurant Dialog */}
+            {selectedRestaurant && (
+                <DeleteRestaurantDialog
+                    restaurant={selectedRestaurant}
+                    onDelete={handleDeleteRestaurant}
+                    open={deleteDialogOpen}
+                    onClose={() => {
+                        setDeleteDialogOpen(false);
+                        setSelectedRestaurant(null);
+                    }}
+                />
+            )}
         </div>
     );
-};
+}

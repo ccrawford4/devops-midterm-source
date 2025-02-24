@@ -7,7 +7,7 @@ import {
 
 // Define the base restaurant type
 interface Restaurant {
-    id?: string;
+    ID?: string;
     name: string;
     cuisine: string;
     location: string;
@@ -16,16 +16,18 @@ interface Restaurant {
 // Props for the form component
 interface RestaurantFormProps {
     data?: Restaurant;
-    onSubmit: (data: Omit<Restaurant, 'id'>) => Promise<Restaurant>;
+    onSubmit: (data: Omit<Restaurant, 'ID'>) => Promise<void>;
     mode: 'create' | 'update';
+    restaurant?: Restaurant
 }
 
 // Props for the delete dialog
 interface DeleteRestaurantDialogProps {
     restaurant: Restaurant;
-    onDelete: (id: string) => Promise<void>;
+    onDelete: (ID: string) => Promise<void>;
     open: boolean;
     onClose: () => void;
+    mode?: string | 'create'
 }
 
 // Restaurant Form Component for Creating/Updating
@@ -102,15 +104,21 @@ export const RestaurantForm: React.FC<RestaurantFormProps> = (props) => {
 };
 
 // Delete Confirmation Dialog
-export const DeleteRestaurantDialog: React.FC<DeleteRestaurantDialogProps> = ({
-                                                                                  restaurant,
-                                                                                  onDelete,
-                                                                                  open,
-                                                                                  onClose
-                                                                              }) => {
+export const DeleteRestaurantDialog: React.FC<DeleteRestaurantDialogProps> = (
+    {
+        restaurant,
+         onDelete,
+         open,
+         onClose
+}) => {
+
     const handleDelete = async () => {
-        if (restaurant.id) {
-            await onDelete(restaurant.id);
+        console.log("restaurant: ", restaurant)
+        console.log("Delete!");
+        console.log("restaurant.id: ", restaurant.ID)
+        if (restaurant.ID) {
+            console.log("test")
+            await onDelete(restaurant.ID);
             onClose();
         }
     };

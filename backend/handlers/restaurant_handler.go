@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.mod/v2/db"
 	"go.mod/v2/models"
@@ -15,6 +16,7 @@ func GetRestaurants(c *gin.Context) {
 
 func GetRestaurant(c *gin.Context) {
 	var restaurant models.Restaurant
+	fmt.Println("C.Param: ", c.Param("id"))
 	if err := db.DB.First(&restaurant, c.Param("id")).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Restaurant not found"})
 		return
