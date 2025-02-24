@@ -6,8 +6,8 @@ on:
       - main       
 
 jobs:
-  run-tests:
-    name: Run Unit Tests
+  frontend-tests:
+    name: Run Frontend Unit Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,9 +22,28 @@ jobs:
           cd frontend
           npm install
           npm run build
-          npm test      
+          npm test     
+  
+  backend-tests:
+    name: Run Backend Unit Tests
+    needs: frontend-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.x'
+      
+      - name: Download modules, build, and test
+        run: |
+            cd backend
+            go get .
+            go test
 
   deploy:
+    needs: backend-tests
     name: Deploy
     runs-on: ubuntu-latest
     environment: dev
