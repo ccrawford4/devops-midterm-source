@@ -1,6 +1,8 @@
 import axios from "axios";
+import dotenv from "dotenv"
+dotenv.config();
 
-const API_URL = "http://localhost:8080";
+const API_URL = process.env.API_URL;
 
 export type Restaurant = {
     ID: string
