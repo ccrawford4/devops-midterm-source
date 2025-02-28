@@ -6,9 +6,9 @@ import (
 )
 
 func RegisterRoutes(r *gin.Engine) {
-	r.GET("/restaurants", handlers.GetRestaurants)
-	r.GET("/restaurants/:id", handlers.GetRestaurant)
-	r.POST("/restaurants", handlers.CreateRestaurant)
-	r.PUT("/restaurants/:id", handlers.UpdateRestaurant)
-	r.DELETE("/restaurants/:id", handlers.DeleteRestaurant)
+	r.GET("/api/restaurants", handlers.GetRestaurants)
+	r.GET("/api/restaurants/:id", handlers.GetRestaurant)
+	r.POST("/api/restaurants", handlers.CreateRestaurant)
+	r.PUT("/api/restaurants/:id", handlers.UpdateRestaurant)
+	r.DELETE("/api/restaurants/:id", handlers.DeleteRestaurant)
 }
