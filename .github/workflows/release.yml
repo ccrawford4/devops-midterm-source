@@ -3,7 +3,11 @@ name: Semantic Release
 on:
   push:
     branches:
-      - main       
+      - main   
+      
+permissions:
+  packages: write
+  contents: write
 
 jobs:
   release:
