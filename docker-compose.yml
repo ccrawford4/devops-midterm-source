@@ -27,8 +27,8 @@ services:
   frontend:
     build: ./frontend
     restart: always
-    environment:
-      API_URL: http://localhost:8080
+    env_file:
+      - ./frontend/.env
     ports:
       - "3000:80"
     depends_on:
