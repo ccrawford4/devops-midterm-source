@@ -28,7 +28,7 @@ services:
     build: ./frontend
     restart: always
     env_file:
-      - ./frontend/.env
+      - .env
     ports:
       - "3000:80"
     depends_on:
