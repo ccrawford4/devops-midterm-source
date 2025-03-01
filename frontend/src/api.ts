@@ -17,12 +17,12 @@ export type RestaurantCreateInput = {
 
 export const getRestaurants = async (): Promise<Restaurant[]> => {
     console.log("API_URL: ", API_URL);
-    const response = await axios.get(`${API_URL}/api/restaurants`);
+    const response = await axios.get(`/api/restaurants`);
     return response.data;
 };
 
 export const addRestaurant = async (data: RestaurantCreateInput): Promise<Restaurant> => {
-    const resp = await axios.post(`${API_URL}/api/restaurants`, data);
+    const resp = await axios.post(`/api/restaurants`, data);
     return {
         ID: resp.data.ID,
         name: resp.data.name,
