@@ -8,10 +8,6 @@ import (
 	"net/http"
 )
 
-func Default(c *gin.Context) {
-	c.JSON(http.StatusOk, { "hello", "world"})
-}
-
 func GetRestaurants(c *gin.Context) {
 	var restaurants []models.Restaurant
 	db.DB.Find(&restaurants)
