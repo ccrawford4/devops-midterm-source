@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/ccrawford4/devops-midterm-source/compare/v1.0.2...v1.0.3) (2025-03-01)
+
+
+### Bug Fixes
+
+* new release ([78e45f2](https://github.com/ccrawford4/devops-midterm-source/commit/78e45f24dab25a94fe095e6103f6ef9d04b14dc5))
+
 ## [1.0.2](https://github.com/ccrawford4/devops-midterm-source/compare/v1.0.1...v1.0.2) (2025-03-01)
 
 
