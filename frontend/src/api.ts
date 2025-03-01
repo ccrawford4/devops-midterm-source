@@ -16,6 +16,7 @@ export type RestaurantCreateInput = {
 }
 
 export const getRestaurants = async (): Promise<Restaurant[]> => {
+    console.log("API_URL: ", API_URL);
     const response = await axios.get(`${API_URL}/api/restaurants`);
     return response.data;
 };
