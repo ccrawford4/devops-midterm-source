@@ -10,7 +10,19 @@ permissions:
   contents: write
 
 jobs:
+  check:
+    name: Check Conventional Commits
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Conventional Commits
+        uses: webiny/action-conventional-commits@v1.3.0
+
   release:
+    needs: check
     runs-on: ubuntu-latest
     name: Semantic Release
     environment:
