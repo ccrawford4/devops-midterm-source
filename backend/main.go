@@ -20,7 +20,7 @@ func main() {
 	routes.RegisterRoutes(r)
 
 	log.Println("Starting server on port 8080...")
-	if err := r.Run(":8080"); err != nil {
+	if err := r.Run("0.0.0.0:8080"); err != nil {
 		log.Fatal(err)
 	}
 }
