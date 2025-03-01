@@ -20,5 +20,5 @@ jobs:
         id: semantic
         uses: cycjimmy/semantic-release-action@v4.1.1
         env:
-          GH_TOKEN: ${{ secrets.SOURCE_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
