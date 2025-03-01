@@ -6,7 +6,6 @@ import (
 )
 
 func RegisterRoutes(r *gin.Engine) {
-	r.GET("/", handlers.Default)
 	r.GET("/api/restaurants", handlers.GetRestaurants)
 	r.GET("/api/restaurants/:id", handlers.GetRestaurant)
 	r.POST("/api/restaurants", handlers.CreateRestaurant)
