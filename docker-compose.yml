@@ -17,7 +17,11 @@ services:
     build: ./backend
     restart: always
     environment:
-      DB_DSN: "root:root@tcp(mysql:3306)/restaurant_db?parseTime=true"
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: restaurant_db
     ports:
       - "8080:8080"
     depends_on:
@@ -27,8 +31,6 @@ services:
   frontend:
     build: ./frontend
     restart: always
-    env_file:
-      - .env
     ports:
       - "3000:80"
     depends_on:

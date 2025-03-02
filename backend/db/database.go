@@ -6,14 +6,23 @@ import (
 	"go.mod/v2/models"
 	"log"
 	"os"
+	"fmt"
 )
 
 var DB *gorm.DB
 
 func ConnectDatabase() {
 	var err error
-	dsn := os.Getenv("DB_DSN")
-	DB, err = gorm.Open("mysql", dsn)
+	
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	db := os.Getenv("DB_NAME")
+
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", user, password, host, port, db)
+
+	DB, err = gorm.Open("mysql", connectionString)
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
