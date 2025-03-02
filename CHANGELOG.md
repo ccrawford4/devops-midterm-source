@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/ccrawford4/devops-midterm-source/compare/v1.0.3...v1.1.0) (2025-03-02)
+
+
+### Features
+
+* new conneection url formatting for database ([f50c12a](https://github.com/ccrawford4/devops-midterm-source/commit/f50c12a54e63ae5b3bb850ae51f3a00fa776e5c0))
+
 ## [1.0.3](https://github.com/ccrawford4/devops-midterm-source/compare/v1.0.2...v1.0.3) (2025-03-01)
 
 
