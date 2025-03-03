@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/ccrawford4/devops-midterm-source/compare/v1.1.0...v1.1.1) (2025-03-03)
+
+
+### Bug Fixes
+
+* updated design ([b9a5b0e](https://github.com/ccrawford4/devops-midterm-source/commit/b9a5b0e7619e8ea0ce234e0a9624a0fc3889d7b3))
+
 # [1.1.0](https://github.com/ccrawford4/devops-midterm-source/compare/v1.0.3...v1.1.0) (2025-03-02)
 
 
