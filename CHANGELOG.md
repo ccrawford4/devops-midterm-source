@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/ccrawford4/devops-midterm-source/compare/v1.1.1...v1.1.2) (2025-03-03)
+
+
+### Bug Fixes
+
+* changed background color ([3a04b11](https://github.com/ccrawford4/devops-midterm-source/commit/3a04b11248a84f13681c3eec87824a9ffd5ce863))
+
 ## [1.1.1](https://github.com/ccrawford4/devops-midterm-source/compare/v1.1.0...v1.1.1) (2025-03-03)
 
 
