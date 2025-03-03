@@ -58,10 +58,10 @@ export default function RestaurantList() {
     }, [selectedRestaurant]);
 
     return (
-        <div className="p-6 max-w-4xl mx-auto space-y-6">
+        <div className="text-white p-6 max-w-4xl mx-auto space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold tracking-tight">Restaurants</h1>
-                <Button onClick={() => setAddDialogOpen(true)} className="gap-2">
+                <h1 className="text-gray-300 text-3xl font-bold tracking-tight" style={{ color: "white" }}>Restaurants</h1>
+                <Button style={{ color: "white" }} onClick={() => setAddDialogOpen(true)} className="gap-2">
                     <Plus size={16} />
                     Add Restaurant
                 </Button>
